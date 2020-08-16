@@ -23,14 +23,14 @@ class Rain(pygame.sprite.Sprite):
         self.cloud = rect
         self.rect = self.image.get_rect(x=randint(self.cloud.x, self.cloud.x+self.cloud.width), y=self.cloud.bottom)
 
-    def update(self, *args):
+    def update(self, clouds):
         self.rect.y += 3
-        if self.rect.y >= self.win.get_height():
+        if pygame.sprite.spritecollideany(self, clouds):
             self.kill()
 
 
 class Cloud(pygame.sprite.Sprite):
-    def __init__(self, win, rain):
+    def __init__(self, win):
         w, h = win.get_size()
         pygame.sprite.Sprite.__init__(self)
         self.win = win
@@ -38,22 +38,20 @@ class Cloud(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = randint(0, w)
         self.lifespan = randint(600, 600*10)
-        self.rain = rain
 
-    def update(self):
+    def update(self, rain):
         self.lifespan -= 1
         if self.lifespan == 0:
             self.kill()
         if randint(6,30) > 25:
-            self.rain.add(Rain(self.win, self.rect))
+            rain.add(Rain(self.win, self.rect))
 
 
 class CloudGen(Thread):
-    def __init__(self, win, clouds, rain):
+    def __init__(self, win, clouds):
         Thread.__init__(self)
         self.win = win
         self.clouds = clouds
-        self.rain = rain
         self.deamon = True
         self.start()
 
@@ -61,7 +59,7 @@ class CloudGen(Thread):
         while True:
             r = randint(0, 1000)
             if r > 700:
-                cloud = Cloud(self.win, self.rain)
+                cloud = Cloud(self.win)
                 self.clouds.add(cloud)
             time.sleep(1)
 
@@ -76,7 +74,7 @@ def main():
     rain = pygame.sprite.Group()
 
     clouds = pygame.sprite.Group()
-    CloudGen(win, clouds, rain)
+    CloudGen(win, clouds)
 
     running = True
     while running:
@@ -88,8 +86,8 @@ def main():
         # Game Render
         win.fill((122, 160, 147))
         all_ground.draw(win)
-        clouds.update()
-        rain.update()
+        clouds.update(rain)
+        rain.update(all_ground)
         rain.draw(win)
         clouds.draw(win)
         pygame.display.update()
