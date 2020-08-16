@@ -21,7 +21,7 @@ class Rain(pygame.sprite.Sprite):
         self.image = pygame.Surface((5,5))
         self.image.fill((0,100,225))
         self.cloud = rect
-        self.rect = self.image.get_rect(x=randint(self.cloud.x, self.cloud.x+self.cloud.width), y=self.cloud.bottom)
+        self.rect = self.image.get_rect(centerx=randint(self.cloud.x, self.cloud.x+self.cloud.width), bottom=self.cloud.bottom)
 
     def update(self, clouds):
         self.rect.y += 3
