@@ -18,13 +18,13 @@ class Rain(pygame.sprite.Sprite):
     def __init__(self, win, rect):
         pygame.sprite.Sprite.__init__(self)
         self.win = win
-        self.image = pygame.Surface((8, 8))
-        self.image.fill((0,25,200))
+        self.image = pygame.Surface((5,5))
+        self.image.fill((0,100,225))
         self.cloud = rect
-        self.rect = self.image.get_rect(x=randint(self.cloud.x, self.cloud.x+self.cloud.width), y=(randint(self.cloud.y*2, self.cloud.y+self.cloud.height)))
+        self.rect = self.image.get_rect(x=randint(self.cloud.x, self.cloud.x+self.cloud.width), y=self.cloud.bottom)
 
     def update(self, *args):
-        self.rect.y += 1
+        self.rect.y += 3
         if self.rect.y >= self.win.get_height():
             self.kill()
 
@@ -60,7 +60,7 @@ class CloudGen(Thread):
     def run(self):
         while True:
             r = randint(0, 1000)
-            if r > 750:
+            if r > 700:
                 cloud = Cloud(self.win, self.rain)
                 self.clouds.add(cloud)
             time.sleep(1)
