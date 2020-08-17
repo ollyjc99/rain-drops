@@ -13,7 +13,7 @@ class Rain(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(centerx=randint(self.cloud.x, self.cloud.x+self.cloud.width), bottom=self.cloud.bottom)
 
     def update(self, win, ground, splash):
-        self.rect.y += 3
+        self.rect.y += 8
         if pygame.sprite.spritecollideany(self, ground):
             for pos in splashfx((self.rect.x, self.rect.y)):
                 SplashGen(win, pos, splash)
