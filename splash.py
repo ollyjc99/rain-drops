@@ -1,11 +1,12 @@
 import pygame
 from threading import Thread
 
+
 class Splash(pygame.sprite.Sprite):
     def __init__(self, win, pos):
         pygame.sprite.Sprite.__init__(self)
         self.win = win
-        self.lifespan = 5
+        self.lifespan = 30
         self.image = pygame.Surface((3, 3))
         self.image.fill((0,100,225))
         self.rect = self.image.get_rect(center=pos)
@@ -33,9 +34,9 @@ def splashfx(pos):
     x, y = pos
     return [
         (x-4, y-1),
-        (x-1.5, y+1),
-        (x, y+1),
-        (x+1.5, y+1),
+        (x-1.5, y),
+        (x, y),
+        (x+1.5, y),
         (x+4, y-1)
     ]
 
