@@ -3,11 +3,15 @@ import pygame
 
 class Ground(pygame.sprite.Sprite):
     def __init__(self, win):
-        w, h = win.get_size()
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((win.get_width(), 40))
+        self.win = win
+        w, h = self.win.get_size()
+        self.image = pygame.Surface((w, 40))
         self.image.fill((50, 150, 50))
         self.rect = self.image.get_rect()
         self.rect.center = (w // 2, h-20)
+
+    def draw(self):
+        self.win.blit(self.image, self.rect)
 
 
