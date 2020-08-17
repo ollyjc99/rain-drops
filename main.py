@@ -2,6 +2,7 @@ import pygame
 from random import randint
 import time
 from threading import Thread
+import atexit
 
 
 class Ground(pygame.sprite.Sprite):
@@ -23,9 +24,26 @@ class Rain(pygame.sprite.Sprite):
         self.cloud = rect
         self.rect = self.image.get_rect(centerx=randint(self.cloud.x, self.cloud.x+self.cloud.width), bottom=self.cloud.bottom)
 
-    def update(self, clouds):
+    def update(self, win, ground, splash):
         self.rect.y += 3
-        if pygame.sprite.spritecollideany(self, clouds):
+        if pygame.sprite.spritecollideany(self, ground):
+            for pos in splashfx((self.rect.x, self.rect.y)):
+                SplashGen(win, pos, splash)
+            self.kill()
+
+
+class Splash(pygame.sprite.Sprite):
+    def __init__(self, win, pos):
+        pygame.sprite.Sprite.__init__(self)
+        self.win = win
+        self.lifespan = 5
+        self.image = pygame.Surface((3, 3))
+        self.image.fill((0,100,225))
+        self.rect = self.image.get_rect(center=pos)
+
+    def update(self):
+        self.lifespan -= 1
+        if self.lifespan <= 0:
             self.kill()
 
 
@@ -52,16 +70,41 @@ class CloudGen(Thread):
         Thread.__init__(self)
         self.win = win
         self.clouds = clouds
-        self.deamon = True
+        self.running = True
         self.start()
 
     def run(self):
-        while True:
+        while self.running:
+            print('Running')
             r = randint(0, 1000)
             if r > 700:
                 cloud = Cloud(self.win)
                 self.clouds.add(cloud)
             time.sleep(1)
+
+
+class SplashGen(Thread):
+    def __init__(self, win, pos, splash):
+        Thread.__init__(self)
+        self.daemon = True
+        self.win = win
+        self.pos = pos
+        self.splash = splash
+        self.start()
+
+    def run(self):
+        self.splash.add(Splash(self.win, self.pos))
+
+
+def splashfx(pos):
+    x, y = pos
+    return [
+        (x-4, y-1),
+        (x-1.5, y+1),
+        (x, y+1),
+        (x+1.5, y+1),
+        (x+4, y-1)
+    ]
 
 
 def main():
@@ -72,25 +115,40 @@ def main():
     all_ground.add(ground)
 
     rain = pygame.sprite.Group()
-
+    splash = pygame.sprite.Group()
     clouds = pygame.sprite.Group()
-    CloudGen(win, clouds)
 
+    cloud_gen = CloudGen(win, clouds)
     running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                running = False
+    try:
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    running = False
 
-        # Game Render
-        win.fill((122, 160, 147))
-        all_ground.draw(win)
-        clouds.update(rain)
-        rain.update(all_ground)
-        rain.draw(win)
-        clouds.draw(win)
-        pygame.display.update()
+            # Game Render
+            win.fill((122, 160, 147))
+
+            clouds.update(rain)
+            rain.update(win, all_ground, splash)
+            splash.update()
+
+            all_ground.draw(win)
+            splash.draw(win)
+            rain.draw(win)
+            clouds.draw(win)
+
+            pygame.display.update()
+
+    except KeyboardInterrupt:
+        print('Keyboard Interrupt')
+
+    except pygame.error:
+        print('PyGame Error')
+
+    finally:
+        cloud_gen.running = False
 
 
 if __name__ == '__main__':
