@@ -10,8 +10,3 @@ class Ground(pygame.sprite.Sprite):
         self.image.fill((50, 150, 50))
         self.rect = self.image.get_rect()
         self.rect.center = (w // 2, h-20)
-
-    def draw(self):
-        self.win.blit(self.image, self.rect)
-
-
