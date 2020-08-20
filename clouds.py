@@ -10,9 +10,10 @@ class Cloud(pygame.sprite.Sprite):
         w, h = win.get_size()
         pygame.sprite.Sprite.__init__(self)
         self.win = win
-        self.image = pygame.transform.scale((pygame.image.load('img/cloud.png')), (180, 100))
+        self.image = pygame.transform.scale((pygame.image.load('img/cloud.png')), (280, 150))
         self.rect = self.image.get_rect()
         self.rect.centerx = randint(0, w)
+        self.rect.centery = 0
         self.lifespan = randint(600, 600*10)
 
     def update(self, rain):
@@ -33,8 +34,8 @@ class CloudGen(Thread):
 
     def run(self):
         while self.running:
-            r = randint(0, 1000)
-            if r > 700:
+            r = randint(0, 100)
+            if r > 80:
                 cloud = Cloud(self.win)
                 self.clouds.add(cloud)
             time.sleep(1)
