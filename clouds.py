@@ -10,7 +10,7 @@ class Cloud(pygame.sprite.Sprite):
         w, h = win.get_size()
         pygame.sprite.Sprite.__init__(self)
         self.win = win
-        self.image = pygame.transform.scale((pygame.image.load('img/cloud.png')), (280, 150))
+        self.image = pygame.transform.scale((pygame.image.load('img/cloud.png')), (220, 130))
         self.rect = self.image.get_rect()
         self.rect.centerx = randint(0, w)
         self.rect.centery = 0
