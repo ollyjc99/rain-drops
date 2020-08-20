@@ -19,7 +19,7 @@ class Cloud(pygame.sprite.Sprite):
         self.lifespan -= 1
         if self.lifespan == 0:
             self.kill()
-        if randint(6,30) > 25:
+        if randint(6,30) > 20:
             rain.add(Rain(self.win, self.rect))
 
 

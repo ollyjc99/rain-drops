@@ -10,7 +10,7 @@ class Rain(pygame.sprite.Sprite):
         self.image = pygame.Surface((5,5))
         self.image.fill((0,100,225))
         self.cloud = rect
-        self.rect = self.image.get_rect(centerx=randint(self.cloud.x, self.cloud.x+self.cloud.width), bottom=self.cloud.bottom)
+        self.rect = self.image.get_rect(centerx=randint(self.cloud.x, self.cloud.x+self.cloud.width), bottom=self.cloud.centery)
 
     def update(self, win, ground, splash):
         self.rect.y += 9

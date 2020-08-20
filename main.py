@@ -17,13 +17,14 @@ def main():
     trees = pygame.sprite.Group()
 
     ground = Ground(win)
-
+    clock = pygame.time.Clock()
     TreeGen(ground, trees)
     cloud_gen = CloudGen(win, clouds)
 
     running = True
     try:
         while running:
+            clock.tick(60)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
