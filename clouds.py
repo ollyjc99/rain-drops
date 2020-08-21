@@ -10,18 +10,22 @@ class Cloud(pygame.sprite.Sprite):
         w, h = win.get_size()
         pygame.sprite.Sprite.__init__(self)
         self.win = win
+        self.rain = pygame.sprite.Group()
         self.image = pygame.transform.scale((pygame.image.load('img/cloud.png')), (220, 130))
         self.rect = self.image.get_rect()
         self.rect.centerx = randint(0, w)
         self.rect.centery = 0
-        self.lifespan = randint(600, 600*10)
+        self.lifespan = randint(600, 600*5)
 
-    def update(self, rain):
+    def update(self, all_rain):
         self.lifespan -= 1
         if self.lifespan == 0:
             self.kill()
-        if randint(6,30) > 20:
-            rain.add(Rain(self.win, self.rect))
+        if randint(6,30) > 10:
+            all_rain.add(Rain(self.win, self.rect))
+            self.rain.add(Rain(self.win, self.rect))
+
+        DrawRain(self.win, self.rain)
 
 
 class CloudGen(Thread):
