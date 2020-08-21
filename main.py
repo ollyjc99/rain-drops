@@ -6,16 +6,16 @@ from clouds import *
 from trees import *
 from ground import *
 
+clock = pygame.time.Clock()
+
 
 def main():
     win = pygame.display.set_mode((800, 600))
-    clock = pygame.time.Clock()
     all_sprites = pygame.sprite.Group()
     surface = pygame.sprite.Group()
     rain = pygame.sprite.Group()
     splash = pygame.sprite.Group()
     clouds = pygame.sprite.Group()
-    trees = pygame.sprite.Group()
 
     ground = Ground(win)
     surface.add(ground)
@@ -33,16 +33,16 @@ def main():
 
             # Game Render
             win.fill((122, 160, 147))
-
+            surface.draw(win)
+            ground.update()
             clouds.update(rain)
             rain.update(win, ground, splash)
             splash.update()
 
-            surface.draw(win)
-            rain.draw(win)
-            print(len(rain))
             all_sprites.add(*[clouds, splash])
             all_sprites.draw(win)
+
+            print(len(rain))
 
             pygame.display.update()
 
