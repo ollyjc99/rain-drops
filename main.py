@@ -40,6 +40,7 @@ def main():
 
             surface.draw(win)
             rain.draw(win)
+            print(len(rain))
             all_sprites.add(*[clouds, splash])
             all_sprites.draw(win)
 
@@ -59,6 +60,5 @@ if __name__ == '__main__':
     time_start = time.perf_counter()
     pygame.init()
     main()
-    pygame.quit()
     time_finish = time.perf_counter()
     print(f'Finished in {round(time_finish - time_start, 3)} second(s)')
