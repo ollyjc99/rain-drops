@@ -3,25 +3,26 @@ from random import randint
 from threading import Thread
 
 
-class TreeGen(Thread):
-    def __init__(self, ground, trees):
+class DrawTrees(Thread):
+    def __init__(self, *args):
         Thread.__init__(self)
         self.daemon = True
-        self.ground = ground
-        self.trees = trees
+        self.win, self.trees = args
         self.start()
 
     def run(self):
-        for i in range(randint(25, 75)):
-            self.trees.add(Tree((randint(self.ground.rect.x, self.ground.rect.width), self.ground.rect.top)))
+        self.trees.draw(self.win)
 
 
 class Tree(pygame.sprite.Sprite):
     def __init__(self, pos):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.transform.scale(pygame.image.load('img/pine-tree.png'), (randint(280, 350), randint(320, 420)))
+        self.image = pygame.transform.scale(pygame.image.load(f'img/pine-tree-{randint(1,2)}.png'), (randint(240, 310), randint(320, 340)))
         x, y = pos
         self.rect = self.image.get_rect(centerx=x, bottom=y)
+
+    def update(self):
+        pass
 
 
 class PineTree(Tree):
