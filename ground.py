@@ -11,7 +11,7 @@ class TreeGen(Thread):
         self.start()
 
     def run(self):
-        for i in range(randint(15, 50)):
+        for i in range(randint(20, 40)):
             self.trees.add(Tree((randint(self.ground.rect.x, self.ground.rect.width), self.ground.rect.top)))
 
 
