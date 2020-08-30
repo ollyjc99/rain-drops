@@ -11,13 +11,14 @@ clock = pygame.time.Clock()
 
 def main():
     win = pygame.display.set_mode((800, 600))
+    surf = Surface()
     all_sprites = pygame.sprite.Group()
     surface = pygame.sprite.Group()
     rain = pygame.sprite.Group()
     splash = pygame.sprite.Group()
     clouds = pygame.sprite.Group()
 
-    ground = Ground(win)
+    ground = Ground(surf.image)
     surface.add(ground)
     TreeGen(ground, surface)
     cloud_gen = CloudGen(win, clouds)
@@ -25,7 +26,6 @@ def main():
     running = True
     try:
         while running:
-            clock.tick(60)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -33,6 +33,7 @@ def main():
 
             # Game Render
             win.fill((122, 160, 147))
+            surf.update(win)
             surface.draw(win)
             ground.update()
             clouds.update(rain)
@@ -42,9 +43,8 @@ def main():
             all_sprites.add(*[clouds, splash])
             all_sprites.draw(win)
 
-            print(len(rain))
-
             pygame.display.update()
+            clock.tick(60)
 
     except KeyboardInterrupt:
         print('Keyboard Interrupt')
