@@ -18,6 +18,8 @@ class Cloud(pygame.sprite.Sprite):
         self.lifespan = randint(600, 600*5)
 
     def update(self, all_rain):
+        self.rect.centerx += 1
+
         self.lifespan -= 1
         if self.lifespan == 0:
             self.kill()
@@ -26,6 +28,12 @@ class Cloud(pygame.sprite.Sprite):
             all_rain.add(droplet)
             self.rain.add(droplet)
         DrawRain(self.win, self.rain)
+
+        if self.rect.right < 0:
+            self.rect.left = self.win.get_width()
+
+        if self.rect.left > self.win.get_width():
+            self.rect.right = 0
 
 
 class CloudGen(Thread):
