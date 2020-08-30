@@ -2,6 +2,19 @@ import pygame
 from trees import *
 
 
+class Surface(object):
+    def __init__(self):
+        self.image = pygame.Surface((400, 600))
+        self.destx = 0
+
+    def update(self, win):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_RIGHT]:
+            self.destx -= 5
+        if keys[pygame.K_LEFT]:
+            self.destx += 5
+            
+
 class TreeGen(Thread):
     def __init__(self, ground, trees):
         Thread.__init__(self)
