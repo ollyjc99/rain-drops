@@ -4,7 +4,7 @@ from trees import *
 
 class Surface(object):
     def __init__(self):
-        self.image = pygame.Surface((800, 600))
+        self.image = pygame.Surface((1600, 600))
         self.image.fill((122, 160, 147))
         self.destx = 0
 

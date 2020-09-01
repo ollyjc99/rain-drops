@@ -32,8 +32,8 @@ def main():
             # Game Render
             win.fill((122, 160, 147))
             surf.update(win)
-            # surface.draw(surf)
-            win.blit(surf.image, (0,0))
+            surface.draw(surf.image)
+            win.blit(surf.image, (surf.destx, 0))
             ground.update()
             clouds.update(rain)
             rain.update(win, ground, splash)
