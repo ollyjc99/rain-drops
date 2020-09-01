@@ -4,6 +4,8 @@ from random import randint
 import time
 from rain import *
 
+clouds = pygame.sprite.Group()
+
 
 class Cloud(pygame.sprite.Sprite):
     def __init__(self, win):

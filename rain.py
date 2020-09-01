@@ -2,6 +2,9 @@ import pygame
 from random import randint
 from splash import *
 
+rain = pygame.sprite.Group()
+splash = pygame.sprite.Group()
+
 
 class DrawRain(Thread):
     def __init__(self, *args):

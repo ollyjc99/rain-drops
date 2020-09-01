@@ -12,14 +12,12 @@ clock = pygame.time.Clock()
 def main():
     win = pygame.display.set_mode((800, 600))
     surf = Surface()
+
     all_sprites = pygame.sprite.Group()
     surface = pygame.sprite.Group()
-    rain = pygame.sprite.Group()
-    splash = pygame.sprite.Group()
-    clouds = pygame.sprite.Group()
-
     ground = Ground(surf.image)
     surface.add(ground)
+
     TreeGen(ground, surface)
     cloud_gen = CloudGen(win, clouds)
 
@@ -34,7 +32,8 @@ def main():
             # Game Render
             win.fill((122, 160, 147))
             surf.update(win)
-            surface.draw(win)
+            # surface.draw(surf)
+            win.blit(surf.image, (0,0))
             ground.update()
             clouds.update(rain)
             rain.update(win, ground, splash)
