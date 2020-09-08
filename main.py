@@ -15,10 +15,10 @@ def main():
 
     all_sprites = pygame.sprite.Group()
     surface = pygame.sprite.Group()
-    ground = Ground(surf.image)
-    surface.add(ground)
+    terrain = Ground(surf.image)
+    surface.add(terrain)
 
-    TreeGen(ground, surface)
+    TreeGen(terrain, surface)
     cloud_gen = CloudGen(win, clouds)
 
     running = True
@@ -34,9 +34,9 @@ def main():
             surf.update(win)
             surface.draw(surf.image)
             win.blit(surf.image, (surf.destx, 0))
-            ground.update()
+            terrain.update()
             clouds.update(rain)
-            rain.update(win, ground, splash)
+            rain.update(win, terrain, splash)
             splash.update()
 
             all_sprites.add(*[clouds, splash])
