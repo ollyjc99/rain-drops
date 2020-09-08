@@ -30,7 +30,6 @@ class TreeGen(Thread):
         self.start()
 
     def run(self):
-        print(self.ground.rect)
         for i in range(randint(20, 40)):
             self.trees.add(Tree((randint(50, self.ground.rect.width-50), self.ground.rect.top)))
 
