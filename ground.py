@@ -17,7 +17,7 @@ class Surface(object):
                 self.destx -= 3
 
         if keys[pygame.K_LEFT]:
-            if rect.left <= 800:
+            if rect.left <= win.get_width():
                 self.destx += 3
             
 
@@ -30,8 +30,9 @@ class TreeGen(Thread):
         self.start()
 
     def run(self):
+        print(self.ground.rect)
         for i in range(randint(20, 40)):
-            self.trees.add(Tree((randint(self.ground.rect.x, self.ground.rect.width), self.ground.rect.top)))
+            self.trees.add(Tree((randint(50, self.ground.rect.width-50), self.ground.rect.top)))
 
 
 class Ground(pygame.sprite.Sprite):
