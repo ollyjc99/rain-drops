@@ -4,7 +4,7 @@ import time
 from threading import Thread
 from clouds import *
 from trees import *
-from ground import *
+from terrain import *
 
 clock = pygame.time.Clock()
 
