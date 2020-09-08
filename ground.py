@@ -10,10 +10,15 @@ class Surface(object):
 
     def update(self, win):
         keys = pygame.key.get_pressed()
+        rect = self.image.get_rect(x=self.destx)
+
         if keys[pygame.K_RIGHT]:
-            self.destx -= 5
+            if rect.right >= 0:
+                self.destx -= 3
+
         if keys[pygame.K_LEFT]:
-            self.destx += 5
+            if rect.left <= 800:
+                self.destx += 3
             
 
 class TreeGen(Thread):
