@@ -31,7 +31,7 @@ def main():
 
             # Game Render
             win.fill((122, 160, 147))
-
+            surf.image.fill((122, 160, 147))
             # Draw the terrain surface onto the display
             surf.update(win)
             surface.draw(surf.image)
