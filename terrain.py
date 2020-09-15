@@ -36,8 +36,8 @@ class TreeGen(Thread):
         self.start()
 
     def run(self):
-        for i in range(randint(20, 40)):
-            self.trees.add(Tree((randint(50, self.ground.rect.width-50), self.ground.rect.top)))
+        for i in range(randint(50, 75)):
+            self.trees.add(Tree((randint(75, self.ground.rect.width-75), self.ground.rect.top)))
 
 
 class Ground(pygame.sprite.Sprite):
