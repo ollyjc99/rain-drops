@@ -24,6 +24,7 @@ class Cloud(pygame.sprite.Sprite):
         self.lifespan -= 1
         if self.lifespan == 0:
             self.kill()
+
         if randint(6,30) > 10:
             droplet = Rain(self.win, self.rect)
             all_rain.add(droplet)
