@@ -25,8 +25,6 @@ class Surface(pygame.sprite.Sprite):
 
         if self.rect.right < win.get_width():
             self.rect.right = win.get_width()
-
-        print(self.rect.left, win.get_size())
             
 
 class TreeGen(Thread):
