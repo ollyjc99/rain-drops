@@ -1,12 +1,14 @@
 import pygame
+from clouds import *
+from rain import *
 
 
 class Surface(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((800, 100))
-        self.image.fill((50,99,0))
-        self.rect = self.image.get_rect(y=500)
+        self.image = pygame.Surface((800, 600))
+        self.image.fill((135, 206, 235))
+        self.rect = self.image.get_rect()
 
     def update(self):
         keys = pygame.key.get_pressed()
@@ -16,11 +18,23 @@ class Surface(pygame.sprite.Sprite):
             self.rect.centerx += 5
 
 
+class Terrain(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((800, 100))
+        self.image.fill((50, 99, 0))
+        self.rect = self.image.get_rect(bottom=600)
+
+
 def main():
     clock = pygame.time.Clock()
     win = pygame.display.set_mode((800, 600))
     surface = Surface()
+    terrain = Terrain()
+    draw = surface.image.blit
     sky_blue = 135, 206, 235
+
+    CloudGen(surface.image)
     running = True
     while running:
         for event in pygame.event.get():
@@ -29,8 +43,12 @@ def main():
                 running = False
 
         surface.update()
+        clouds.update()
+        draw(terrain.image, terrain.rect)
+
         win.fill(sky_blue)
-        win.blit(surface.image, (surface.rect.x, 550))
+        win.blit(surface.image, surface.rect.topleft)
+        clouds.draw(surface.image)
         pygame.display.update()
         clock.tick(60)
 
