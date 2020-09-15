@@ -17,7 +17,7 @@ class DrawTrees(Thread):
 class Tree(pygame.sprite.Sprite):
     def __init__(self, pos):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.transform.scale(pygame.image.load(f'img/pine-tree-0.png'), (randint(240, 310), randint(320, 340)))
+        self.image = pygame.image.load(f'img/pine-tree-{randint(0,3)}.png')
         x, y = pos
         self.rect = self.image.get_rect(centerx=x, bottom=y)
 
