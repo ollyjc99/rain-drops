@@ -19,7 +19,7 @@ def main():
     surface.add(terrain)
 
     TreeGen(terrain, surface)
-    cloud_gen = CloudGen(win)
+    cloud_gen = CloudGen(surf.image)
 
     running = True
     try:
@@ -29,22 +29,19 @@ def main():
                     pygame.quit()
                     running = False
 
-            # Game Render
-            win.fill((122, 160, 147))
-            surf.image.fill((122, 160, 147))
-            # Draw the terrain surface onto the display
             surf.update(win)
             surface.draw(surf.image)
-            win.blit(surf.image, (surf.destx, 0))
 
             terrain.update()
             clouds.update(rain)
-            rain.update(win, terrain, splash)
+            rain.update(surf.image, terrain, splash)
             splash.update()
 
             all_sprites.add(*[clouds, splash])
-            all_sprites.draw(win)
+            all_sprites.draw(surf.image)
 
+            win.fill((0, 0, 0))
+            win.blit(surf.image, surf.rect)
             pygame.display.update()
             clock.tick(60)
 
