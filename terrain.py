@@ -19,6 +19,14 @@ class Surface(pygame.sprite.Sprite):
         if keys[pygame.K_LEFT]:
             if self.rect.left <= win.get_width():
                 self.rect.x += 3
+
+        if self.rect.left > 0:
+            self.rect.left = 0
+
+        if self.rect.right < win.get_width():
+            self.rect.right = win.get_width()
+
+        print(self.rect.left, win.get_size())
             
 
 class TreeGen(Thread):
@@ -41,7 +49,7 @@ class Ground(pygame.sprite.Sprite):
         w, h = self.win.get_size()
         self.trees = pygame.sprite.Group()
         self.image = pygame.Surface((w, 40))
-        self.image.fill((50, 150, 50))
+        self.image.fill((50, 99, 0))
         self.rect = self.image.get_rect()
         self.rect.center = (w // 2, h-20)
 
