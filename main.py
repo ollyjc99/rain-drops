@@ -19,7 +19,7 @@ def main():
     surface.add(terrain)
 
     TreeGen(terrain, surface)
-    cloud_gen = CloudGen(win, clouds)
+    cloud_gen = CloudGen(win)
 
     running = True
     try:
