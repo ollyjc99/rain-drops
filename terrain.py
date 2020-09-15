@@ -2,23 +2,23 @@ import pygame
 from trees import *
 
 
-class Surface(object):
+class Surface(pygame.sprite.Sprite):
     def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((1600, 600))
-        self.image.fill((122, 160, 147))
-        self.destx = 0
+        self.rect = self.image.get_rect()
 
     def update(self, win):
+        self.image.fill((122, 160, 147))
         keys = pygame.key.get_pressed()
-        rect = self.image.get_rect(x=self.destx)
 
         if keys[pygame.K_RIGHT]:
-            if rect.right >= 0:
-                self.destx -= 3
+            if self.rect.right >= 0:
+                self.rect.x -= 3
 
         if keys[pygame.K_LEFT]:
-            if rect.left <= win.get_width():
-                self.destx += 3
+            if self.rect.left <= win.get_width():
+                self.rect.x += 3
             
 
 class TreeGen(Thread):
