@@ -24,7 +24,7 @@ class Rain(pygame.sprite.Sprite):
     def __init__(self, win, rect):
         pygame.sprite.Sprite.__init__(self)
         self.win = win
-        self.image = pygame.image.load('img/rain-drop.png')
+        self.image = pygame.transform.scale((pygame.image.load('img/rain-drop.png')), (9, 10))
         self.cloud = rect
         self.rect = self.image.get_rect(centerx=randint(self.cloud.x, self.cloud.x+self.cloud.width), bottom=self.cloud.centery)
 
